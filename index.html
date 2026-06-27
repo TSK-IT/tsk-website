@@ -187,6 +187,16 @@
 window.PAGE_READY = function(){
   const {C,$,imgCard,imgFull,productCard,byDiv,reveal} = window.TSK;
 
+  // hero video — keep trying to play (iOS Low Power Mode blocks autoplay → start on first interaction)
+  (function(){
+    const v=document.querySelector('.hero video'); if(!v)return;
+    v.muted=true; v.setAttribute('muted',''); v.playsInline=true; v.setAttribute('playsinline','');
+    const go=()=>{ const p=v.play(); if(p&&p.catch)p.catch(()=>{}); };
+    go();
+    ['touchstart','pointerdown','click','scroll','keydown'].forEach(ev=>window.addEventListener(ev,go,{once:true,passive:true}));
+    document.addEventListener('visibilitychange',()=>{ if(!document.hidden)go(); });
+  })();
+
   // division cards — original TSK-generated covers (no third-party catalogue imagery)
   $('#divisionCards').innerHTML = C.divisions.map((d,i)=>`
     <a class="div-card" href="collection.html?division=${d.id}" data-trans>
