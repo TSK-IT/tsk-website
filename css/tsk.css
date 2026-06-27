@@ -139,8 +139,8 @@ header.nav.solid{background:rgba(7,7,9,.72);backdrop-filter:blur(16px);padding-b
 .nav-cta{border:1px solid var(--line);padding:11px 22px;border-radius:40px;font-size:11px;letter-spacing:.18em;
   text-transform:uppercase;color:var(--gold-bright);transition:all .45s var(--ease)}
 .nav-cta:hover{background:var(--gold);color:var(--black);border-color:var(--gold)}
-.burger{display:none;flex-direction:column;gap:6px;z-index:1100;width:30px}
-.burger span{height:1.5px;background:var(--white);transition:.4s var(--ease)}
+.burger{display:none;flex-direction:column;gap:6px;z-index:1100;width:32px;padding:4px 0}
+.burger span{height:2px;background:var(--white);border-radius:2px;box-shadow:0 1px 5px rgba(0,0,0,.6);transition:.4s var(--ease)}
 .burger.open span:nth-child(1){transform:translateY(7.5px) rotate(45deg)}
 .burger.open span:nth-child(2){opacity:0}
 .burger.open span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg)}
