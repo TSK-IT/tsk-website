@@ -139,11 +139,11 @@ header.nav.solid{background:rgba(7,7,9,.72);backdrop-filter:blur(16px);padding-b
 .nav-cta{border:1px solid var(--line);padding:11px 22px;border-radius:40px;font-size:11px;letter-spacing:.18em;
   text-transform:uppercase;color:var(--gold-bright);transition:all .45s var(--ease)}
 .nav-cta:hover{background:var(--gold);color:var(--black);border-color:var(--gold)}
-.burger{display:none;position:fixed;top:16px;right:var(--gutter);flex-direction:column;align-items:center;justify-content:center;gap:5.5px;width:46px;height:46px;z-index:1200;padding:0;margin:0;-webkit-appearance:none;appearance:none;outline:none;border-radius:50%;background:rgba(18,18,22,.5);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.18)}
-.burger span{display:block;width:22px;height:2px;background:#fff;border-radius:2px;box-shadow:0 1px 4px rgba(0,0,0,.5);transition:.4s var(--ease)}
-.burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.burger{display:none;position:fixed;top:22px;right:var(--gutter);flex-direction:column;align-items:flex-end;justify-content:center;gap:6px;width:30px;height:26px;z-index:1200;padding:0;margin:0;-webkit-appearance:none;appearance:none;outline:none;background:none;border:none}
+.burger span{display:block;width:28px;height:2px;background:#fff;border-radius:2px;box-shadow:0 1px 4px rgba(0,0,0,.7);transition:.4s var(--ease)}
+.burger.open span:nth-child(1){transform:translateY(8px) rotate(45deg)}
 .burger.open span:nth-child(2){opacity:0}
-.burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.burger.open span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
 
 /* mobile menu */
 .menu-overlay{position:fixed;inset:0;z-index:1050;background:var(--black);display:flex;flex-direction:column;
@@ -154,6 +154,11 @@ header.nav.solid{background:rgba(7,7,9,.72);backdrop-filter:blur(16px);padding-b
   display:block;opacity:.85;transition:.4s;border-bottom:1px solid var(--line-soft)}
 .menu-overlay a:hover{color:var(--gold);padding-left:14px}
 .menu-foot{margin-top:46px;display:flex;gap:28px;flex-wrap:wrap;color:var(--muted);font-size:12px;letter-spacing:.1em}
+.menu-close{position:absolute;top:18px;right:var(--gutter);width:44px;height:44px;display:flex;align-items:center;justify-content:center;-webkit-appearance:none;appearance:none;background:none;border:none;padding:0;margin:0;cursor:pointer;z-index:3}
+.menu-close span{position:absolute;width:26px;height:2px;background:#fff;border-radius:2px;transition:.3s var(--ease)}
+.menu-close span:nth-child(1){transform:rotate(45deg)}
+.menu-close span:nth-child(2){transform:rotate(-45deg)}
+.menu-close:hover span{background:var(--gold-bright)}
 
 /* ============================================================
    BUTTONS
@@ -189,6 +194,7 @@ header.nav.solid{background:rgba(7,7,9,.72);backdrop-filter:blur(16px);padding-b
 .scroll-cue .bar{width:1px;height:50px;background:linear-gradient(var(--gold),transparent);position:relative;overflow:hidden}
 .scroll-cue .bar::after{content:'';position:absolute;top:-50%;left:0;width:100%;height:50%;background:var(--gold-bright);animation:cue 2.2s var(--ease) infinite}
 @keyframes cue{0%{top:-50%}100%{top:100%}}
+@media(max-width:680px){.scroll-cue{display:none}}
 
 /* ============================================================
    REVEAL ANIMATIONS (set by JS / CSS fallback)

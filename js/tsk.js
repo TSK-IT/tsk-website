@@ -94,16 +94,19 @@ function buildChrome(){
   /* mobile menu */
   const mo = el('div','menu-overlay');
   mo.innerHTML = `
+    <button class="menu-close" aria-label="Close menu"><span></span><span></span></button>
     <div>${[{t:'Home',h:'index.html'}].concat(NAV).map(n=>`<a href="${n.h}" data-trans>${n.t}</a>`).join('')}</div>
     <div class="menu-foot">
       <span>${C.brand.email||''}</span><span>${C.brand.phone||''}</span><span>${C.brand.instagram||''}</span>
     </div>`;
   D.body.appendChild(mo);
   const burger=$('.burger',head);
+  const closeMenu=()=>{mo.classList.remove('open');burger.classList.remove('open');D.body.classList.remove('lock');};
   burger.addEventListener('click',()=>{
     const o=mo.classList.toggle('open'); burger.classList.toggle('open'); D.body.classList.toggle('lock',o);
   });
-  $$('.menu-overlay a').forEach(a=>a.addEventListener('click',()=>{mo.classList.remove('open');burger.classList.remove('open');D.body.classList.remove('lock');}));
+  $('.menu-close',mo).addEventListener('click',closeMenu);
+  $$('.menu-overlay a').forEach(a=>a.addEventListener('click',closeMenu));
 
   /* footer (skip on experience room) */
   if(!D.body.classList.contains('no-foot')) buildFooter();
