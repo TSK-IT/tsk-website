@@ -1,0 +1,31 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Materials & Finishes | TSK — The Stellar Kraft</title>
+<meta name="description" content="The core material and finish palette behind every bespoke TSK creation.">
+<link rel="canonical" href="https://www.thestellarkraft.com/materials.html">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#070709">
+<meta property="og:type" content="website"><meta property="og:site_name" content="TSK — The Stellar Kraft">
+<meta property="og:title" content="Materials & Finishes | TSK — The Stellar Kraft"><meta property="og:description" content="The core material and finish palette behind every bespoke TSK creation.">
+<meta property="og:url" content="https://www.thestellarkraft.com/materials.html"><meta property="og:image" content="https://www.thestellarkraft.com/assets/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://www.thestellarkraft.com/assets/og-image.jpg">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/tsk.css"></head>
+<body data-page="materials.html" data-loader="quick">
+<section class="phead wrap">
+  <div class="crumb reveal"><a href="index.html" data-trans>Home</a><span class="sep">/</span><span>Materials & Finishes</span></div>
+  <div class="kicker reveal reveal-d1 mt-m">Materials & Finishes</div>
+  <h1 class="display reveal reveal-d1">Engineered in<br>the finest matter.</h1>
+</section>
+<section class="section wrap"><div class="maxw-60"><p class="lead reveal">Every commission is engineered in the material and finish that best serves its architecture and environment. A selection of our core palette.</p></div><div class="cat-grid mt-l" id="matGrid" style="grid-template-columns:repeat(3,1fr)"></div><h2 class="h-lg display reveal mt-l" style="margin-top:clamp(60px,8vw,120px)">Couture finishes</h2><div class="tag-row mt-m" id="finRow"></div></section>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+<script src="data/catalog.js"></script>
+<script src="js/tsk.js"></script>
+<script>window.PAGE_READY=function(){ var T=window.TSK; var g=T.C.materials_glossary; var grid=document.querySelector("#matGrid");
+grid.innerHTML=Object.entries(g).map(([k,v])=>`<div class="reveal" style="background:var(--graphite);border:1px solid var(--line-soft);border-radius:4px;padding:30px"><div class="kicker">Material</div><h3 class="h-md display" style="margin:8px 0 12px">${k}</h3><p class="fade-text" style="font-size:14px">${v}</p></div>`).join("");
+var fins=["Champagne Gold","Gold PVD","Rose Gold","Mirror Polish","Brushed Finish","Chrome","Bronze","Matte Black","Powder Coated"];
+document.querySelector("#finRow").innerHTML=fins.map(f=>`<span class="chip">${f}</span>`).join(""); T.reveal(); };</script>
+</body></html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Selected installations by The Stellar Kraft across luxury hotels, resorts, private estates and the public realm — Dubai, Monaco, London, Singapore, Maldives and beyond.">
+<link rel="canonical" href="https://www.thestellarkraft.com/projects.html">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="author" content="The Stellar Kraft · Kumar Vishal">
+<meta name="keywords" content="luxury chandelier, bespoke lighting, architectural ceilings, metal ceiling, outdoor sculpture, public art, The Stellar Kraft, TSK, luxury interior, hospitality lighting, custom chandelier India">
+<meta name="theme-color" content="#070709">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="TSK — The Stellar Kraft">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Projects — Ultra-Luxury Installations Worldwide | TSK">
+<meta property="og:description" content="Selected installations by The Stellar Kraft across luxury hotels, resorts, private estates and the public realm — Dubai, Monaco, London, Singapore, Maldives and beyond.">
+<meta property="og:url" content="https://www.thestellarkraft.com/projects.html">
+<meta property="og:image" content="https://www.thestellarkraft.com/assets/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="TSK — The Stellar Kraft">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Projects — Ultra-Luxury Installations Worldwide | TSK">
+<meta name="twitter:description" content="Selected installations by The Stellar Kraft across luxury hotels, resorts, private estates and the public realm — Dubai, Monaco, London, Singapore, Maldives and beyond.">
+<meta name="twitter:image" content="https://www.thestellarkraft.com/assets/og-image.jpg">
+
+<title>Projects — TSK · The Stellar Kraft</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/tsk.css">
+</head>
+<body data-page="projects.html" data-loader="quick">
+
+<section class="phead wrap">
+  <div class="pbg" id="phbg"></div>
+  <div class="crumb reveal"><a href="index.html" data-trans>Home</a><span class="sep">/</span><span>Projects</span></div>
+  <div class="kicker reveal reveal-d1 mt-m">Selected Works</div>
+  <h1 class="display reveal reveal-d1">Installed across<br>the world's finest spaces.</h1>
+  <p class="psub lead reveal reveal-d2">Completed, in installation and in production — a portfolio of bespoke architectural experiences for hotels, resorts, private estates and the public realm.</p>
+  <div class="filters reveal reveal-d3 mt-l" id="pfilters"></div>
+</section>
+
+<section class="wrap" style="padding-bottom:clamp(80px,11vw,160px)">
+  <div class="cat-grid" id="projGrid"></div>
+</section>
+
+<!-- project modal -->
+<div id="pmodal" style="position:fixed;inset:0;z-index:7000;background:rgba(5,5,7,.96);display:none;overflow-y:auto;backdrop-filter:blur(6px)">
+  <div class="wrap" style="padding-block:clamp(80px,12vh,140px);position:relative">
+    <button onclick="TSKcloseProj()" style="position:fixed;top:30px;right:var(--gutter);z-index:10;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-bright)">Close ✕</button>
+    <div id="pmodalBody"></div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+<script src="data/catalog.js"></script>
+<script src="js/tsk.js"></script>
+<script>
+window.PAGE_READY=function(){
+  const {C,$,$$,imgFull,imgCard,reveal}=window.TSK;
+  $('#phbg').innerHTML = `<img src="${imgFull(C.backgrounds[0])}" alt="">`;
+  const statuses=['All','Completed','In Installation','In Production'];
+  $('#pfilters').innerHTML = statuses.map((s,i)=>`<button class="filter ${i===0?'active':''}" data-s="${s}">${s}</button>`).join('');
+
+  function card(pr,i){
+    const cls = i%5===0?'':(i%5===2?'':'');
+    return `<a class="pcard reveal" onclick="TSKopenProj('${pr.id}')" data-cursor="View Case">
+      <div class="pc-media" style="aspect-ratio:${i%4===0?'4/5':'4/3'}"><img src="${imgCard(pr.hero)}" alt="${pr.title}" loading="lazy"><div class="pc-shine"></div></div>
+      <div class="pc-explore">Case Study →</div>
+      <div class="pc-body">
+        <div class="pc-code">${pr.location} · ${pr.status} · ${pr.year}</div>
+        <div class="pc-name display">${pr.title.split(',')[0]}</div>
+        <div class="pc-tag">${pr.sector} · ${pr.scale}</div>
+      </div></a>`;
+  }
+  function render(list){ $('#projGrid').innerHTML=list.map(card).join(''); reveal(); if(window._cursorHook)window._cursorHook(); }
+  render(C.projects);
+
+  $$('#pfilters .filter').forEach(b=>b.addEventListener('click',()=>{
+    $$('#pfilters .filter').forEach(x=>x.classList.remove('active')); b.classList.add('active');
+    const s=b.dataset.s; render(s==='All'?C.projects:C.projects.filter(p=>p.status===s));
+  }));
+
+  window.TSKopenProj=function(id){
+    const pr=C.projects.find(x=>x.id===id); if(!pr)return;
+    $('#pmodalBody').innerHTML=`
+      <div class="kicker">${pr.sector} · ${pr.location}</div>
+      <h2 class="display" style="font-size:clamp(40px,7vw,100px);margin:14px 0">${pr.title.split(',')[0]}</h2>
+      <div class="tag-row" style="margin-bottom:30px">
+        <span class="chip">${pr.status}</span><span class="chip">${pr.scale}</span><span class="chip">${pr.year}</span><span class="chip">${window.TSK.divMeta(pr.division).title}</span>
+      </div>
+      <div class="media-frame media-wide" style="margin-bottom:14px"><img src="${imgFull(pr.hero)}" alt=""></div>
+      <div class="pgallery" style="grid-template-columns:repeat(2,1fr)">
+        ${pr.gallery.map(g=>`<div class="media-frame" style="aspect-ratio:4/3"><img src="${imgFull(g)}" alt="" loading="lazy"></div>`).join('')}
+      </div>
+      <div class="split" style="margin-top:50px">
+        <h3 class="h-md display">A bespoke ${window.TSK.divMeta(pr.division).title.toLowerCase()} commission.</h3>
+        <p class="lead">Drawn to the architecture of ${pr.location}, this installation was engineered, hand-finished and commissioned in-house — transforming a ${pr.scale.toLowerCase()} into a defining moment of arrival.</p>
+      </div>
+      <a href="contact.html" data-trans class="btn gold" style="margin-top:40px">Commission something similar <span class="ar">→</span></a>`;
+    $('#pmodal').style.display='block'; document.body.classList.add('lock');
+    if(window._cursorHook)window._cursorHook();
+  };
+  window.TSKcloseProj=function(){ $('#pmodal').style.display='none'; document.body.classList.remove('lock'); };
+};
+</script>
+</body>
+</html>

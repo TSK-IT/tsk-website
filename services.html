@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Three immersive divisions of ultra-luxury architectural experience by The Stellar Kraft: bespoke Couture Lighting, sculpted Architectural Ceilings and monumental Sculptural Systems.">
+<link rel="canonical" href="https://www.thestellarkraft.com/services.html">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="author" content="The Stellar Kraft · Kumar Vishal">
+<meta name="keywords" content="luxury chandelier, bespoke lighting, architectural ceilings, metal ceiling, outdoor sculpture, public art, The Stellar Kraft, TSK, luxury interior, hospitality lighting, custom chandelier India">
+<meta name="theme-color" content="#070709">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="TSK — The Stellar Kraft">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Collections — Couture Lighting, Architectural Ceilings & Sculpture | TSK">
+<meta property="og:description" content="Three immersive divisions of ultra-luxury architectural experience by The Stellar Kraft: bespoke Couture Lighting, sculpted Architectural Ceilings and monumental Sculptural Systems.">
+<meta property="og:url" content="https://www.thestellarkraft.com/services.html">
+<meta property="og:image" content="https://www.thestellarkraft.com/assets/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="TSK — The Stellar Kraft">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Collections — Couture Lighting, Architectural Ceilings & Sculpture | TSK">
+<meta name="twitter:description" content="Three immersive divisions of ultra-luxury architectural experience by The Stellar Kraft: bespoke Couture Lighting, sculpted Architectural Ceilings and monumental Sculptural Systems.">
+<meta name="twitter:image" content="https://www.thestellarkraft.com/assets/og-image.jpg">
+
+<title>Collections — TSK · The Stellar Kraft</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/tsk.css">
+</head>
+<body data-page="services.html" data-loader="quick">
+
+<section class="phead wrap">
+  <div class="pbg" id="phbg"></div>
+  <div class="crumb reveal"><a href="index.html" data-trans>Home</a><span class="sep">/</span><span>Collections</span></div>
+  <div class="kicker reveal reveal-d1 mt-m">The Collections</div>
+  <h1 class="display reveal reveal-d1">Three immersive<br>architectural worlds.</h1>
+  <p class="psub lead reveal reveal-d2">Each division is a universe of bespoke creation — engineered, hand-finished and hung in-house. Choose a world to enter.</p>
+</section>
+
+<section id="divisions"></section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+<script src="data/catalog.js"></script>
+<script src="js/tsk.js"></script>
+<script>
+window.PAGE_READY=function(){
+  const {C,$,imgFull,imgCard,byDiv,productCard,reveal}=window.TSK;
+  $('#phbg').innerHTML = `<img src="${imgFull('sculpture-001')}" alt="">`;
+
+  $('#divisions').innerHTML = C.divisions.map((d,i)=>{
+    const prods = byDiv(d.id).slice(0,4);
+    const rev = i%2===1;
+    return `
+    <div class="section wrap">
+      <div class="split ${rev?'rev':''}" style="align-items:center">
+        <a class="div-card" href="collection.html?division=${d.id}" data-trans data-cursor="Enter" style="height:clamp(420px,60vh,680px)">
+          <video autoplay muted loop playsinline poster="assets/video/reel_${d.reel}.jpg"><source src="assets/video/reel_${d.reel}.mp4" type="video/mp4"></video>
+          <div class="dc-n">${['I','II','III'][i]}</div>
+          <div class="dc-in"><div class="kicker">${d.kicker}</div></div>
+        </a>
+        <div>
+          <div class="kicker reveal">${d.kicker} · ${d.count} creations</div>
+          <h2 class="h-xl display reveal reveal-d1 mt-s">${d.title}</h2>
+          <p class="lead reveal reveal-d2 mt-s">${d.tagline}.</p>
+          <p class="fade-text reveal reveal-d2 mt-s">${d.blurb}</p>
+          <a href="collection.html?division=${d.id}" data-trans class="btn mt-m reveal reveal-d3">Enter the Collection <span class="ar">→</span></a>
+          <div class="cat-grid reveal reveal-d3 mt-l" style="grid-template-columns:repeat(4,1fr);gap:10px">
+            ${prods.map(p=>`<a href="product.html?id=${p.id}" data-trans data-cursor="View" class="media-frame" style="aspect-ratio:3/4;display:block"><img src="${imgCard(p.hero)}" alt="${p.name}" loading="lazy"></a>`).join('')}
+          </div>
+        </div>
+      </div>
+    </div>
+    ${i<C.divisions.length-1?'<div class="divider wrap"></div>':''}`;
+  }).join('');
+
+  reveal(); if(window._cursorHook)window._cursorHook();
+};
+</script>
+</body>
+</html>

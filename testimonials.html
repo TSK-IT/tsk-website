@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Architects, owners and developers on commissioning The Stellar Kraft — bespoke architectural lighting, ceilings and sculpture.">
+<link rel="canonical" href="https://www.thestellarkraft.com/testimonials.html">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="author" content="The Stellar Kraft · Kumar Vishal">
+<meta name="keywords" content="luxury chandelier, bespoke lighting, architectural ceilings, metal ceiling, outdoor sculpture, public art, The Stellar Kraft, TSK, luxury interior, hospitality lighting, custom chandelier India">
+<meta name="theme-color" content="#070709">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="TSK — The Stellar Kraft">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Testimonials — Trusted by Those Who Define Luxury | TSK">
+<meta property="og:description" content="Architects, owners and developers on commissioning The Stellar Kraft — bespoke architectural lighting, ceilings and sculpture.">
+<meta property="og:url" content="https://www.thestellarkraft.com/testimonials.html">
+<meta property="og:image" content="https://www.thestellarkraft.com/assets/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="TSK — The Stellar Kraft">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Testimonials — Trusted by Those Who Define Luxury | TSK">
+<meta name="twitter:description" content="Architects, owners and developers on commissioning The Stellar Kraft — bespoke architectural lighting, ceilings and sculpture.">
+<meta name="twitter:image" content="https://www.thestellarkraft.com/assets/og-image.jpg">
+
+<title>Testimonials — TSK · The Stellar Kraft</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/tsk.css">
+</head>
+<body data-page="testimonials.html" data-loader="quick">
+
+<section class="phead wrap">
+  <div class="pbg" id="phbg"></div>
+  <div class="crumb reveal"><a href="index.html" data-trans>Home</a><span class="sep">/</span><span>Testimonials</span></div>
+  <div class="kicker reveal reveal-d1 mt-m">In Their Words</div>
+  <h1 class="display reveal reveal-d1">Trusted by those who<br>define luxury.</h1>
+</section>
+
+<section class="section" style="background:var(--graphite)">
+  <div class="wrap">
+    <div class="testi" id="bigTesti" style="min-height:480px"></div>
+    <div class="t-nav" id="bigNav"></div>
+  </div>
+</section>
+
+<section class="section wrap">
+  <div class="center"><div class="kicker reveal">Collaborations & Voices</div>
+  <h2 class="h-lg display reveal reveal-d1 mt-s">From architects, owners<br>and developers worldwide</h2></div>
+  <div class="cat-grid mt-l" id="grid"></div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+<script src="data/catalog.js"></script>
+<script src="js/tsk.js"></script>
+<script>
+window.PAGE_READY=function(){
+  const {C,$,$$,imgFull,reveal}=window.TSK;
+  $('#phbg').innerHTML = `<img src="${imgFull(C.backgrounds[5]||C.backgrounds[0])}" alt="">`;
+  const T=[
+    {q:'They did not deliver a chandelier. They delivered the soul of the lobby. Guests stop, look up, and forget what they were saying.',by:'Principal Architect',role:'5-Star Hospitality Group · Dubai'},
+    {q:'The ceiling became our identity — the single most photographed surface in the entire resort.',by:'Owner',role:'Private Island Resort · Maldives'},
+    {q:'Commissioning TSK feels like commissioning a sculptor, not ordering a product. Obsessive, precise, world-class.',by:'Design Director',role:'Ultra-Luxury Developer · London'},
+    {q:'Monumental, and impossibly elegant. The sculpture is now the landmark our address is known by.',by:'Estate Principal',role:'Royal Residence · Riyadh'},
+    {q:'Every promise was kept to the millimetre and the day. Rare, at this level of ambition.',by:'Project Lead',role:'Resort Group · Singapore'},
+    {q:'The engineering confidence let us specify something no one believed could be built. It hangs perfectly.',by:'Structural Consultant',role:'Architecture Firm · Monaco'},
+  ];
+  $('#bigTesti').innerHTML = T.slice(0,4).map((t,i)=>`<div class="t-item ${i===0?'show':''}"><div class="t-card"><div class="kicker" style="margin-bottom:24px">— ${String(i+1).padStart(2,'0')} —</div><div class="t-quote">“${t.q}”</div><div class="t-by">${t.by}</div><div class="t-role">${t.role}</div></div></div>`).join('');
+  $('#bigNav').innerHTML = T.slice(0,4).map((_,i)=>`<span class="t-dot ${i===0?'active':''}" data-i="${i}"></span>`).join('');
+  let ti=0; const items=$$('#bigTesti .t-item'), dots=$$('#bigNav .t-dot');
+  function show(n){items[ti].classList.remove('show');dots[ti].classList.remove('active');ti=(n+items.length)%items.length;items[ti].classList.add('show');dots[ti].classList.add('active');}
+  let auto=setInterval(()=>show(ti+1),5000);
+  dots.forEach(d=>d.addEventListener('click',()=>{clearInterval(auto);show(+d.dataset.i);auto=setInterval(()=>show(ti+1),5000);}));
+
+  $('#grid').innerHTML = T.map((t,i)=>`
+    <div class="reveal" style="background:rgba(255,255,255,.035);border:1px solid var(--line-soft);backdrop-filter:blur(10px);border-radius:6px;padding:clamp(28px,3vw,46px)">
+      <div style="color:var(--gold);font-family:var(--serif);font-size:48px;line-height:.6">”</div>
+      <p class="serif-it" style="font-size:clamp(18px,1.7vw,24px);line-height:1.4;margin:14px 0 26px">${t.q}</p>
+      <div class="t-by">${t.by}</div><div class="t-role">${t.role}</div>
+    </div>`).join('');
+
+  reveal(); if(window._cursorHook)window._cursorHook();
+};
+</script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "name": "The Stellar Kraft — TSK",
+  "short_name": "TSK",
+  "description": "Ultra-luxury architectural lighting, ceilings and sculptural systems.",
+  "start_url": "/index.html",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#070709",
+  "theme_color": "#070709",
+  "icons": [
+    { "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "assets/og-image.jpg", "sizes": "1200x630", "type": "image/jpeg", "purpose": "maskable" }
+  ]
+}

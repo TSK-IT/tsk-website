@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Browse the full TSK product line — hundreds of bespoke chandeliers, sculpted ceilings and monumental sculptures, engineered and hung in-house.">
+<link rel="canonical" href="https://www.thestellarkraft.com/collection.html">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="author" content="The Stellar Kraft · Kumar Vishal">
+<meta name="keywords" content="luxury chandelier, bespoke lighting, architectural ceilings, metal ceiling, outdoor sculpture, public art, The Stellar Kraft, TSK, luxury interior, hospitality lighting, custom chandelier India">
+<meta name="theme-color" content="#070709">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="TSK — The Stellar Kraft">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Collection | TSK — The Stellar Kraft">
+<meta property="og:description" content="Browse the full TSK product line — hundreds of bespoke chandeliers, sculpted ceilings and monumental sculptures, engineered and hung in-house.">
+<meta property="og:url" content="https://www.thestellarkraft.com/collection.html">
+<meta property="og:image" content="https://www.thestellarkraft.com/assets/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="TSK — The Stellar Kraft">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Collection | TSK — The Stellar Kraft">
+<meta name="twitter:description" content="Browse the full TSK product line — hundreds of bespoke chandeliers, sculpted ceilings and monumental sculptures, engineered and hung in-house.">
+<meta name="twitter:image" content="https://www.thestellarkraft.com/assets/og-image.jpg">
+
+<title>Collection — TSK · The Stellar Kraft</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/tsk.css">
+</head>
+<body data-page="services.html" data-loader="quick">
+
+<section class="phead wrap">
+  <div class="pbg" id="phbg"></div>
+  <div class="crumb reveal"><a href="index.html" data-trans>Home</a><span class="sep">/</span><a href="services.html" data-trans>Collections</a><span class="sep">/</span><span id="cName">—</span></div>
+  <div class="kicker reveal reveal-d1 mt-m" id="cKick">Division</div>
+  <h1 class="display reveal reveal-d1" id="cTitle">—</h1>
+  <p class="psub lead reveal reveal-d2" id="cBlurb"></p>
+  <div class="filters reveal reveal-d3 mt-l" id="filters"></div>
+</section>
+
+<section class="wrap" style="padding-bottom:clamp(80px,11vw,160px)">
+  <div class="cat-grid" id="grid"></div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+<script src="data/catalog.js"></script>
+<script src="js/tsk.js"></script>
+<script>
+window.PAGE_READY=function(){
+  const {C,$,$$,param,imgFull,byDiv,divMeta,productCard,reveal}=window.TSK;
+  const dv = param('division') || 'lighting';
+  const meta = divMeta(dv);
+  const prods = byDiv(dv);
+  document.title = `${meta.title} — ${prods.length} bespoke creations | TSK · The Stellar Kraft`;
+  $('#cName').textContent = meta.title;
+  $('#cKick').textContent = `${meta.kicker} · ${prods.length} creations`;
+  $('#cTitle').textContent = meta.title;
+  $('#cBlurb').textContent = meta.blurb;
+  $('#phbg').innerHTML = `<img src="${imgFull(meta.hero)}" alt="${meta.title} — TSK">`;
+  // beige treatment for sea-view / warm ceiling division
+  if(meta.seaview){ document.querySelector('.phead').classList.add('sec-beige'); document.querySelector('.phead .pbg').style.opacity='.85'; }
+
+  const PAGE = 30;
+  let shown = 0, currentList = prods;
+
+  function renderReset(list){
+    currentList = list; shown = 0;
+    $('#grid').innerHTML = '';
+    more();
+  }
+  function more(){
+    const slice = currentList.slice(shown, shown+PAGE);
+    $('#grid').insertAdjacentHTML('beforeend', slice.map(p=>productCard(p)).join(''));
+    shown += slice.length;
+    reveal();
+    renderMoreBtn();
+  }
+  function renderMoreBtn(){
+    let bar = document.querySelector('#moreBar');
+    if(!bar){ bar = document.createElement('div'); bar.id='moreBar'; bar.style.cssText='text-align:center;margin-top:54px'; $('#grid').after(bar); }
+    if(shown < currentList.length){
+      bar.innerHTML = `<button class="btn" id="moreBtn">Load more — <span style="color:var(--silver)">${currentList.length-shown} remaining</span></button>`;
+      document.querySelector('#moreBtn').addEventListener('click', more);
+    } else { bar.innerHTML = `<span class="kicker dim">— end of collection · ${currentList.length} creations —</span>`; }
+  }
+
+  // filters: by collection
+  const collections = [...new Set(prods.map(p=>p.collection))];
+  const filters = ['All', ...collections];
+  $('#filters').innerHTML = filters.map((f,i)=>`<button class="filter ${i===0?'active':''}" data-f="${f}">${f}</button>`).join('');
+  renderReset(prods);
+
+  $$('#filters .filter').forEach(b=>b.addEventListener('click',()=>{
+    $$('#filters .filter').forEach(x=>x.classList.remove('active')); b.classList.add('active');
+    const f=b.dataset.f;
+    renderReset(f==='All'?prods:prods.filter(p=>p.collection===f));
+    const top=document.querySelector('#grid').offsetTop-160;
+    if(window.TSK.lenis){window.TSK.lenis.scrollTo(top);}else window.scrollTo({top,behavior:'smooth'});
+  }));
+};
+</script>
+</body>
+</html>

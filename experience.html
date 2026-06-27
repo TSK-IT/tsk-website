@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Step inside a private rotating gallery of TSK couture lighting, architectural ceilings and monumental sculpture.">
+<link rel="canonical" href="https://www.thestellarkraft.com/experience.html">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="author" content="The Stellar Kraft · Kumar Vishal">
+<meta name="keywords" content="luxury chandelier, bespoke lighting, architectural ceilings, metal ceiling, outdoor sculpture, public art, The Stellar Kraft, TSK">
+<meta name="theme-color" content="#070709">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="TSK — The Stellar Kraft">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Experience Room | TSK — The Stellar Kraft">
+<meta property="og:description" content="A private rotating gallery of TSK couture lighting, architectural ceilings and monumental sculpture.">
+<meta property="og:url" content="https://www.thestellarkraft.com/experience.html">
+<meta property="og:image" content="https://www.thestellarkraft.com/assets/og-image.jpg">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="TSK — The Stellar Kraft">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Experience Room | TSK — The Stellar Kraft">
+<meta name="twitter:description" content="A private rotating gallery of TSK couture lighting, architectural ceilings and monumental sculpture.">
+<meta name="twitter:image" content="https://www.thestellarkraft.com/assets/og-image.jpg">
+<title>Experience Room — TSK · The Stellar Kraft</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/tsk.css">
+<style>
+  body{background:#050507}
+  .xp3d{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;perspective:1700px;z-index:2;overflow:hidden;cursor:grab}
+  .xp3d:active{cursor:grabbing}
+  .xp3d-ring{position:relative;width:clamp(300px,34vw,460px);height:clamp(400px,44vw,600px);transform-style:preserve-3d;will-change:transform}
+  .xp3d-card{position:absolute;inset:0;border-radius:6px;overflow:hidden;backface-visibility:hidden;border:1px solid var(--line-soft);box-shadow:0 36px 90px rgba(0,0,0,.6);background:var(--graphite);text-decoration:none}
+  .xp3d-card img{width:100%;height:100%;object-fit:cover;filter:brightness(.9) saturate(1.03);transition:filter .5s}
+  .xp3d-card::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 52%,rgba(5,5,7,.88))}
+  .xp3d-card:hover img{filter:brightness(1.04) saturate(1.06)}
+  .xp3d-cap{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:16px;text-align:center}
+  .xp3d-cap .n{font-family:var(--serif);font-size:clamp(16px,1.5vw,21px);color:#fff;line-height:1.05}
+  .xp3d-cap .c{font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--champagne);margin-top:5px}
+  .xp-vig{position:fixed;inset:0;z-index:3;pointer-events:none;background:radial-gradient(135% 105% at 50% 48%,transparent 42%,rgba(5,5,7,.92))}
+  .xp-fallback{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px}
+</style>
+</head>
+<body data-page="experience.html" data-loader="quick" class="no-foot">
+
+<div class="xp3d" id="xpStage"><div class="xp3d-ring" id="xpRing"></div></div>
+<div class="xp-vig"></div>
+
+<div class="xp-ui xp-title">
+  <div class="kicker">Experience Room</div>
+  <h2 class="display" id="xpName">The Gallery</h2>
+  <div class="fade-text" id="xpMeta" style="font-size:13px;letter-spacing:.05em">Drag to spin · click a piece to open</div>
+</div>
+<div class="xp-ui xp-hint">Lighting · Ceilings · Sculpture</div>
+<div class="xp-ui xp-tabs" id="xpTabs"></div>
+
+<!-- fallback grid -->
+<section class="wrap hide" id="xpFallback" style="padding-top:140px;padding-bottom:80px"></section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="data/catalog.js"></script>
+<script src="js/tsk.js"></script>
+<script>
+window.PAGE_READY=function(){
+  const {C,$,$$,imgCard,imgFull,byDiv,divMeta}=window.TSK;
+  const ring=$('#xpRing'), stage=$('#xpStage');
+  let current='lighting', rot=0, vel=0.05, radius=600, drag=false, lastX=0, momentum=0;
+
+  $('#xpTabs').innerHTML=['lighting','ceilings','sculpture'].map((d,i)=>`<div class="xp-tab ${i===0?'active':''}" data-d="${d}">${divMeta(d).title}</div>`).join('');
+
+  function build(div){
+    const items=byDiv(div).slice(0,18);
+    const N=items.length||1;
+    const cardW=ring.getBoundingClientRect().width||280;
+    radius=Math.round((cardW/2)/Math.tan(Math.PI/N))+40;
+    ring.innerHTML=items.map((it,i)=>`
+      <a class="xp3d-card" href="product.html?id=${it.id}" style="transform:rotateY(${i*(360/N)}deg) translateZ(${radius}px)">
+        <img src="${imgFull(it.hero)}" alt="${it.name}" decoding="async">
+        <div class="xp3d-cap"><div class="n">${it.name}</div><div class="c">${it.code}</div></div>
+      </a>`).join('');
+    const dm=divMeta(div); $('#xpName').textContent=dm.title; $('#xpMeta').textContent=dm.tagline||'Drag to spin · click a piece to open';
+  }
+  build(current);
+
+  // rotation loop
+  (function loop(){
+    if(!drag){ rot+=vel+momentum; momentum*=0.93; }
+    ring.style.transform=`translateZ(-${radius}px) rotateX(-4deg) rotateY(${rot}deg)`;
+    requestAnimationFrame(loop);
+  })();
+
+  // drag to spin
+  function down(x){ drag=true; lastX=x; momentum=0; }
+  function move(x){ if(!drag)return; const dx=x-lastX; lastX=x; rot+=dx*0.22; momentum=dx*0.012; }
+  function up(){ drag=false; }
+  stage.addEventListener('pointerdown',e=>down(e.clientX));
+  addEventListener('pointermove',e=>move(e.clientX));
+  addEventListener('pointerup',up);
+  stage.addEventListener('touchstart',e=>down(e.touches[0].clientX),{passive:true});
+  addEventListener('touchmove',e=>{ if(drag)move(e.touches[0].clientX); },{passive:true});
+  addEventListener('touchend',up);
+  addEventListener('wheel',e=>{ rot+=e.deltaY*0.05; },{passive:true});
+  // don't let a drag count as a click
+  let dragDist=0; stage.addEventListener('pointerdown',e=>dragDist=0);
+  addEventListener('pointermove',e=>{ if(drag)dragDist+=Math.abs(e.movementX); });
+  stage.addEventListener('click',e=>{ if(dragDist>6){ e.preventDefault(); } },true);
+
+  // tabs
+  $$('#xpTabs .xp-tab').forEach(t=>t.addEventListener('click',()=>{
+    $$('#xpTabs .xp-tab').forEach(x=>x.classList.remove('active')); t.classList.add('active');
+    current=t.dataset.d; rot=0; momentum=0; build(current);
+  }));
+  addEventListener('resize',()=>build(current));
+};
+</script>
+</body>
+</html>
