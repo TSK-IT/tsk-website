@@ -21,8 +21,4 @@
     Cache-Control = "public, max-age=31536000, immutable"
 
 # force https + non-www -> www (canonical)
-[[redirects]]
-  from = "https://thestellarkraft.com/*"
-  to = "https://www.thestellarkraft.com/:splat"
-  status = 301
-  force = true
+
