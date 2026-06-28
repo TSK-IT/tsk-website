@@ -38,7 +38,7 @@
 
 <!-- ========================= HERO ========================= -->
 <section class="hero">
-  <video autoplay muted loop playsinline poster="assets/video/hero.jpg">
+  <video autoplay muted loop playsinline preload="auto" poster="assets/video/hero.jpg">
     <source src="assets/video/hero_web.mp4" type="video/mp4">
   </video>
   <div class="wrap">
@@ -187,12 +187,16 @@
 window.PAGE_READY = function(){
   const {C,$,imgCard,imgFull,productCard,byDiv,reveal} = window.TSK;
 
-  // hero video — keep trying to play (iOS Low Power Mode blocks autoplay → start on first interaction)
+  // hero video — maximise autoplay: muted+inline+programmatic, retry as data arrives & on a short timer,
+  // and start on first touch (only Low Power / Low Data Mode can still block it — an OS limit no site can override)
   (function(){
     const v=document.querySelector('.hero video'); if(!v)return;
-    v.muted=true; v.setAttribute('muted',''); v.playsInline=true; v.setAttribute('playsinline','');
+    v.muted=true; v.defaultMuted=true; v.setAttribute('muted','');
+    v.playsInline=true; v.setAttribute('playsinline',''); v.setAttribute('webkit-playsinline','');
     const go=()=>{ const p=v.play(); if(p&&p.catch)p.catch(()=>{}); };
     go();
+    ['loadeddata','canplay','canplaythrough'].forEach(ev=>v.addEventListener(ev,go));
+    let tries=0; const t=setInterval(()=>{ if(!v.paused||++tries>8){clearInterval(t);return;} go(); },400);
     ['touchstart','pointerdown','click','scroll','keydown'].forEach(ev=>window.addEventListener(ev,go,{once:true,passive:true}));
     document.addEventListener('visibilitychange',()=>{ if(!document.hidden)go(); });
   })();
