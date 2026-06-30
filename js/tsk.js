@@ -31,6 +31,7 @@ const NAV = [
   {t:'Projects',    h:'projects.html'},
   {t:'Experience',  h:'experience.html'},
   {t:'Atelier',     h:'founder.html'},
+  {t:'Journal',     h:'journal.html'},
   {t:'Contact',     h:'contact.html'},
 ];
 
@@ -133,7 +134,7 @@ function socIcon(n){return `<svg viewBox="0 0 24 24" fill="currentColor" aria-hi
 
 function buildFooter(){
   const b=C.brand, f=el('footer','lfoot');
-  const NAVF=[['Home','index.html'],['Collections','services.html'],['Projects','projects.html'],['The Atelier','founder.html'],['Contact','contact.html']];
+  const NAVF=[['Home','index.html'],['Collections','services.html'],['Projects','projects.html'],['The Atelier','founder.html'],['Journal','journal.html'],['Contact','contact.html']];
   const SVCF=[['Couture Lighting','collection.html?division=lighting'],['Architectural Ceilings','collection.html?division=ceilings'],['Sculptural Systems','collection.html?division=sculpture'],['Materials & Finishes','materials.html']];
   const SOC=[['instagram',b.instagram,'Instagram'],['facebook',b.facebook,'Facebook'],['linkedin',b.linkedin,'LinkedIn'],['pinterest',b.pinterest,'Pinterest'],['behance',b.behance,'Behance'],['youtube',b.youtube,'YouTube'],['whatsapp',b.whatsapp,'WhatsApp'],['email','mailto:'+b.email,'Email']];
   const LEGAL=[['Privacy','privacy.html'],['Terms','terms.html'],['Careers','careers.html'],['Site Map','sitemap.html']];
